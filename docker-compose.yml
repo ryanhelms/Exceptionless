@@ -8,7 +8,8 @@ services:
     build:
       context: .
       target: api
-    image: exceptionless/api-ci:latest
+    #image: exceptionless/api-ci:latest
+    image: exceptionless/api:latest
     environment:
       EX_AppMode: Development
       EX_ConnectionStrings__Cache: provider=redis
@@ -30,8 +31,9 @@ services:
       - api
     build:
       context: .
-      target: job
-    image: exceptionless/job-ci:latest
+    #  target: job
+    #image: exceptionless/job-ci:latest
+    image: exceptionless/job:latest
     command: run-all
     environment:
       EX_AppMode: Development
@@ -47,10 +49,11 @@ services:
       - appdata:/app/storage
 
   ui:
-    image: exceptionless/ui-ci:latest
+    #image: exceptionless/ui-ci:latest
+    image: exceptionless/ui:latest
     environment:
       AppMode: Development
-      BaseUrl: http://ex-api.localtest.me:5000
+      BaseUrl: https://exceptionless.dev.enumis.co.uk
     ports:
       - 5100:80
 
