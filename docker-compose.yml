@@ -7,7 +7,7 @@ services:
       - elasticsearch
     build:
       context: .
-      target: api
+    #  target: api
     #image: exceptionless/api-ci:latest
     image: exceptionless/api:latest
     environment:
