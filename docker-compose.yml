@@ -50,7 +50,7 @@ services:
 
   ui:
     #image: exceptionless/ui-ci:latest
-    image: exceptionless/ui:latest
+    image: intelligentmediallc/exceptionless-ui
     environment:
       AppMode: Development
       BaseUrl: https://exceptionless.dev.enumis.co.uk
