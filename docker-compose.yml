@@ -1,4 +1,4 @@
-#version: '2'
+#version: '3.4'
 version: '2'
 
 services:
@@ -8,10 +8,9 @@ services:
     build:
       context: .
     #  target: api
-    image: exceptionless/api-ci:latest
-    #image: exceptionless/api:latest
+    image: exceptionless/api:latest
     environment:
-      EX_AppMode: Development
+      EX_AppMode: Production
       EX_ConnectionStrings__Cache: provider=redis
       EX_ConnectionStrings__Elasticsearch: server=http://elasticsearch:9200
       #EX_ConnectionStrings__Email: smtps://user:password@smtp.host.com:587
@@ -20,7 +19,8 @@ services:
       EX_ConnectionStrings__Queue: provider=redis
       EX_ConnectionStrings__Redis: server=redis,abortConnect=false
       EX_ConnectionStrings__Storage: provider=folder;path=/app/storage
-      EX_RunJobsInProcess: 'false'
+      EX_RunJobsInProcess: 'true'
+      #EX_ConnectionStrings__Email: 
     ports:
       - 5000:80
     volumes:
@@ -32,11 +32,10 @@ services:
     build:
       context: .
     #  target: job
-    image: exceptionless/job-ci:latest
-    #image: exceptionless/job:latest
+    image: exceptionless/job:latest
     command: run-all
     environment:
-      EX_AppMode: Development
+      EX_AppMode: Production
       EX_ConnectionStrings__Cache: provider=redis
       EX_ConnectionStrings__Elasticsearch: server=http://elasticsearch:9200
       #EX_ConnectionStrings__Email: smtps://user:password@smtp.host.com:587
@@ -45,18 +44,16 @@ services:
       EX_ConnectionStrings__Queue: provider=redis
       EX_ConnectionStrings__Redis: server=redis,abortConnect=false
       EX_ConnectionStrings__Storage: provider=folder;path=/app/storage
+      #EX_ConnectionStrings__Email: 
     volumes:
       - appdata:/app/storage
 
   ui:
-    image: exceptionless/ui-ci:latest
-    #image: intelligentmediallc/exceptionless-ui
+    image: exceptionless/ui:latest
     environment:
-      AppMode: Development
-      BaseUrl: https://exceptionless.dev.enumis.co.uk
-      ApiUrl: https://exceptionless.dev.enumis.co.uk
-      EX_BaseUrl: https://exceptionless.dev.enumis.co.uk      
-      EX_ApiUrl: https://exceptionless.dev.enumis.co.uk
+      AppMode: Production
+      EX_BaseUrl: https://exceptionless.dev.enumis.co.uk/#!
+      EX_ApiUrl: https://exceptionless-api.dev.enumis.co.uk
     ports:
       - 5100:80
 
